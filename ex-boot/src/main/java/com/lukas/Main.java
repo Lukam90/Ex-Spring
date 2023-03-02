@@ -1,5 +1,7 @@
 package com.lukas;
 
+import java.util.List;
+
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -14,7 +16,19 @@ public class Main {
 	}
 
 	@GetMapping("/")
-	public String greet() {
-		return "Hello!";
+	public GreetResponse greet() {
+		return new GreetResponse(
+			"Hello!",
+			List.of("Java", "Golang", "Javascript"),
+			new Person("Alex")
+		);
 	}
+
+	record Person(String name) {}
+
+	record GreetResponse(
+		String greet,
+		List<String> favProgrammingLanguages,
+		Person person
+	){}
 }
